@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAVI SAI VIGNESWAR | Game Developer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <style>
+        /* Global Styles */
+        :root {
+            --dark-bg: #0a192f;
+            --accent-cyan: #64ffda;
+            --accent-red: #ff2d75;
+            --text-primary: #e6f1ff;
+            --text-secondary: #8892b0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        /* RSV Logo Animation */
+        .logo-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--dark-bg);
+            z-index: 1000;
+        }
+        
+        .logo {
+            font-size: 8vw;
+            font-weight: 900;
+            opacity: 0;
+        }
+        
+        .logo span {
+            display: inline-block;
+        }
+        
+        /* Hero Playground */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: 0 20px;
+        }
+        
+        .hero h1 {
+            font-size: clamp(2rem, 8vw, 6rem);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            color: var(--accent-cyan);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.7;
+            z-index: -1;
+        }
+        
+        /* Generative Background */
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+        
+        /* Sections */
+        section {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: var(--accent-cyan);
+            position: relative;
+            display: inline-block;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 70%;
+            height: 2px;
+            background: var(--accent-red);
+        }
+        
+        /* Skills Carousel */
+        .skills-carousel {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 20px 0;
+            scroll-snap-type: x mandatory;
+        }
+        
+        .skill-card {
+            min-width: 200px;
+            background: rgba(100, 255, 218, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            scroll-snap-align: start;
+            border: 1px solid var(--accent-cyan);
+        }
+        
+        /* Experience Cards */
+        .experience-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .experience-card {
+            background: rgba(10, 25, 47, 0.8);
+            padding: 30px;
+            border-radius: 10px;
+            border-left: 3px solid var(--accent-red);
+            transition: transform 0.3s;
+        }
+        
+        .experience-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Draggable Projects */
+        .projects-container {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 20px 0;
+            cursor: grab;
+        }
+        
+        .project-card {
+            min-width: 300px;
+            background: rgba(255, 45, 117, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid var(--accent-red);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(10, 25, 47, 0.8);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- RSV Logo Animation -->
+    <div class="logo-container">
+        <div class="logo" id="rsv-logo">RSV</div>
+    </div>
+    
+    <!-- Hero Playground -->
+    <section class="hero">
+        <h1>RAVI SAI VIGNESWAR</h1>
+        <p>Game Developer | Unity & Unreal Engine Enthusiast</p>
+        
+        <!-- Draggable Shapes -->
+        <div class="shape" style="width: 100px; height: 100px; background: var(--accent-red); top: 20%; left: 10%;"></div>
+        <div class="shape" style="width: 150px; height: 150px; background: var(--accent-cyan); bottom: 15%; right: 10%;"></div>
+    </section>
+    
+    <!-- Generative Background Canvas -->
+    <canvas id="generative-bg"></canvas>
+    
+    <!-- About Section -->
+    <section id="about">
+        <h2>About Me</h2>
+        <p>Passionate game developer specializing in Unity and Unreal Engine. I create immersive experiences through code and design.</p>
+    </section>
+    
+    <!-- Skills Carousel -->
+    <section id="skills">
+        <h2>Skills</h2>
+        <div class="skills-carousel">
+            <div class="skill-card">
+                <h3>Unity</h3>
+                <p>3D Game Development, Shaders, AR/VR</p>
+            </div>
+            <div class="skill-card">
+                <h3>Unreal Engine</h3>
+                <p>Blueprints, C++, Level Design</p>
+            </div>
+            <div class="skill-card">
+                <h3>Web</h3>
+                <p>HTML, CSS, JavaScript, Three.js</p>
+            </div>
+            <div class="skill-card">
+                <h3>Languages</h3>
+                <p>C#, C++, Python</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Experience Stack -->
+    <section id="experience">
+        <h2>Experience</h2>
+        <div class="experience-stack">
+            <div class="experience-card">
+                <h3>Game Developer @StudioX</h3>
+                <p>2022 - Present</p>
+                <p>Developed award-winning mobile games using Unity.</p>
+            </div>
+            <div class="experience-card">
+                <h3>Unreal Engine Developer @NextGen</h3>
+                <p>2020 - 2022</p>
+                <p>Created immersive VR experiences with Unreal Engine.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Projects Carousel -->
+    <section id="projects">
+        <h2>Projects</h2>
+        <div class="projects-container" id="draggable-projects">
+            <div class="project-card">
+                <h3>Cosmic Adventure</h3>
+                <p>Unity-based 3D platformer</p>
+            </div>
+            <div class="project-card">
+                <h3>Neon Racing</h3>
+                <p>Unreal Engine multiplayer racer</p>
+            </div>
+            <div class="project-card">
+                <h3>VR Puzzle Box</h3>
+                <p>Immersive puzzle game</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <p>Contact: ravisaivigneswar@example.com</p>
+    </footer>
+
+    <script>
+        // RSV Logo Animation
+        const logo = document.getElementById('rsv-logo');
+        const logoContainer = document.querySelector('.logo-container');
+        
+        anime({
+            targets: '.logo span',
+            translateY: [-100, 0],
+            opacity: [0, 1],
+            duration: 1500,
+            delay: anime.stagger(300),
+            easing: 'easeOutExpo',
+            complete: function() {
+                setTimeout(() => {
+                    anime({
+                        targets: logoContainer,
+                        opacity: 0,
+                        duration: 1000,
+                        easing: 'easeInOutExpo',
+                        complete: function() {
+                            logoContainer.style.display = 'none';
+                        }
+                    });
+                }, 1000);
+            }
+        });
+        
+        // Split letters for animation
+        logo.innerHTML = logo.textContent.split('').map((char, i) => 
+            `<span style="display:inline-block;" key=${i}>${char}</span>`
+        ).join('');
+        
+        // Draggable Shapes in Hero
+        const shapes = document.querySelectorAll('.shape');
+        shapes.forEach(shape => {
+            let isDragging = false;
+            let offsetX, offsetY;
+            
+            shape.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                offsetX = e.clientX - shape.getBoundingClientRect().left;
+                offsetY = e.clientY - shape.getBoundingClientRect().top;
+                shape.style.cursor = 'grabbing';
+            });
+            
+            document.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                shape.style.left = `${e.clientX - offsetX}px`;
+                shape.style.top = `${e.clientY - offsetY}px`;
+            });
+            
+            document.addEventListener('mouseup', () => {
+                isDragging = false;
+                shape.style.cursor = 'grab';
+            });
+            
+            // Animate shapes randomly
+            anime({
+                targets: shape,
+                translateX: anime.random(-20, 20),
+                translateY: anime.random(-20, 20),
+                duration: 3000,
+                direction: 'alternate',
+                loop: true,
+                easing: 'easeInOutSine'
+            });
+        });
+        
+        // Generative Background
+        const canvas = document.getElementById('generative-bg');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const particles = [];
+        const particleCount = window.innerWidth < 768 ? 30 : 100;
+        
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 2 - 1;
+                this.speedY = Math.random() * 2 - 1;
+                this.color = `hsl(${Math.random() * 60 + 180}, 100%, 50%)`;
+            }
+            
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Connect particles
+                for (let i = 0; i < particles.length; i++) {
+                    const dx = this.x - particles[i].x;
+                    const dy = this.y - particles[i].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < 100) {
+                        ctx.strokeStyle = `rgba(100, 255, 218, ${1 - distance/100})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(this.x, this.y);
+                        ctx.lineTo(particles[i].x, particles[i].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+        
+        function init() {
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+        
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+            }
+            
+            requestAnimationFrame(animate);
+        }
+        
+        init();
+        animate();
+        
+        // Draggable Projects Carousel
+        const projectsContainer = document.getElementById('draggable-projects');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+        
+        projectsContainer.addEventListener('mousedown', (e) => {
+            isDown = true;
+            startX = e.pageX - projectsContainer.offsetLeft;
+            scrollLeft = projectsContainer.scrollLeft;
+            projectsContainer.style.cursor = 'grabbing';
+        });
+        
+        projectsContainer.addEventListener('mouseleave', () => {
+            isDown = false;
+            projectsContainer.style.cursor = 'grab';
+        });
+        
+        projectsContainer.addEventListener('mouseup', () => {
+            isDown = false;
+            projectsContainer.style.cursor = 'grab';
+        });
+        
+        projectsContainer.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - projectsContainer.offsetLeft;
+            const walk = (x - startX) * 2;
+            projectsContainer.scrollLeft = scrollLeft - walk;
+        });
+        
+        // Responsive Resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
