@@ -3,52 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RAVI SAI VIGNESWAR - Game Developer</title>
+    <title>RSV - Game Developer</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <h1 class="name">RAVI SAI VIGNESWAR</h1>
-            <h2 class="title">Game Developer | Unity & Unreal Engine Enthusiast</h2>
-        </header>
 
-        <section class="section contact">
-            <h3>Contact Information</h3>
-            <p><strong>Email:</strong> <a href="mailto:ravisairockey2004@gmail.com">ravisairockey2004@gmail.com</a></p>
-            <p><strong>Phone:</strong> +91 7285994545</p>
-            <p><strong>Location:</strong> Bangalore, India 560064</p>
-        </section>
-
-        <section class="section summary">
-            <h3>Professional Summary</h3>
-            <p>Experienced game developer passionate about creating immersive experiences with a strong focus on gameplay, performance, and user engagement.</p>
-        </section>
-
-        <section class="section skills">
-            <h3>Skills</h3>
-            <div class="skills-grid">
-                <div class="skill">Game Development</div>
-                <div class="skill">Unity & Unreal Engine</div>
-                <div class="skill">Web Games</div>
-                <div class="skill">C#</div>
-                <div class="skill">C++</div>
-                <div class="skill">Python</div>
-                <div class="skill">HTML</div>
-                <div class="skill">CSS</div>
-                <div class="skill">JavaScript</div>
-                <div class="skill">3D Modeling & Animation</div>
-            </div>
-        </section>
-
-        <section class="section profiles">
-            <h3>Websites & Profiles</h3>
-            <p><a href="https://github.com/ravisairockey" target="_blank">GitHub</a></p>
-            <p><a href="https://ravisairockey.github.io/Res/" target="_blank">Portfolio</a></p>
-        </section>
+    <div id="animejs-v4-logo">
+      <div id="sub-text">RAVI SAI VIGNESWAR</div>
+      <svg id="effects" xmlns="http://www.w3.org/2000/svg" version="1.1" class="filters">
+        <defs>
+          <filter id="blur">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="10,0" />
+          </filter>
+        </defs>
+      </svg>
+      <svg id="logo" width="640px" height="360px" viewBox="0 0 640 360" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      </svg>
     </div>
 
-    <script src="anime.min.js"></script>
-    <script src="script.js"></script>
+    <div class="layered-animations">
+        <svg class="small shape color-red" viewBox="0 0 96 96">
+            <rect width="48" height="48" x="24" y="24" fill-rule="evenodd" stroke-linecap="square"/>
+        </svg>
+        <svg class="small shape color-red" viewBox="0 0 96 96">
+            <polygon fill-rule="evenodd" points="48 17.28 86.4 80.11584 9.6 80.11584" stroke-linecap="square"/>
+        </svg>
+        <svg class="small shape color-red" viewBox="0 0 96 96">
+            <circle cx="48" cy="48" r="32" fill-rule="evenodd" stroke-linecap="square"/>
+        </svg>
+        <svg class="shape" viewBox="0 0 96 96">
+            <circle cx="48" cy="48" r="28" fill-rule="evenodd" stroke-linecap="square"/>
+        </svg>
+        <svg class="shape" viewBox="0 0 96 96">
+            <rect width="48" height="48" x="24" y="24" fill-rule="evenodd" stroke-linecap="square"/>
+        </svg>
+        <svg class="shape" viewBox="0 0 96 96">
+            <polygon fill-rule="evenodd" points="48 17.28 86.4 80.11584 9.6 80.11584" stroke-linecap="square"/>
+        </svg>
+    </div>
+
+    <div class="particles"></div>
+
+    <section id="about">
+        <h1>RAVI SAI VIGNESWAR</h1>
+        <h2>Game Developer | Unity & Unreal Engine Enthusiast</h2>
+        <p>Experienced game developer passionate about creating immersive experiences with a strong focus on gameplay, performance, and user engagement.</p>
+        <div id="contact">
+            <p>Email: ravisairockey2004@gmail.com</p>
+            <p>Phone: +91 7285994545</p>
+            <p>Location: Bangalore, India 560064</p>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div id="snap-carousel" class="flicker container margin">
+            <ul class="carousel">
+              <li class="draggable carousel-item">Game Development</li>
+              <li class="draggable carousel-item">Unity & Unreal Engine</li>
+              <li class="draggable carousel-item">Web Games</li>
+              <li class="draggable carousel-item">C#, C++, Python</li>
+              <li class="draggable carousel-item">HTML, CSS, JavaScript</li>
+              <li class="draggable carousel-item">3D Modeling & Animation</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="sticky-container">
+      <div class="sticky-content">
+        <div class="stack">
+          <div class="card"><div class="front">GitHub</div><div class="back"></div></div>
+          <div class="card"><div class="front">Portfolio</div><div class="back"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="drawer">
+      <div class="drawer-trigger"></div>
+      <div class="drawer-content">
+          <!-- Project details will be loaded here -->
+      </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
 </body>
 </html>
