@@ -9,33 +9,38 @@
 
 body {
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
-  position: absolute;
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
   background-color: var(--black);
   color: var(--white);
   font-family: 'Input Mono', monospace;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  padding: 2rem;
+  box-sizing: border-box;
+  position: relative;
 }
 
 #animejs-v4-logo {
-  overflow: hidden;
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: 640px;
-  height: 360px;
+  width: 100%;
+  max-width: 640px;
 }
 
 #logo {
   position: relative;
   overflow: visible;
-  top: -15%;
   width: 72%;
   height: auto;
 }
@@ -49,11 +54,6 @@ body {
 }
 
 #sub-text {
-  position: absolute;
-  z-index: 1;
-  bottom: 20%;
-  left: 0;
-  right: 0;
   font-family: 'PPSupplyMono-Regular', monospace;
   font-size: 18px;
   color: #FFF;
@@ -68,10 +68,6 @@ body {
   display: inline-block;
 }
 
-#four {
-  filter: url('#blur');
-}
-
 .particles {
   --size: 17;
   --diameter: 1em;
@@ -81,9 +77,9 @@ body {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  width: calc(var(--size) * 1em);
-  height: calc(var(--size) * 1em);
-  position: fixed;
+  width: 100%;
+  height: 100%;
+  position: absolute;
   top: 0;
   left: 0;
   z-index: -1;
@@ -102,8 +98,7 @@ body {
 }
 
 .sticky-container {
-  align-items: flex-start;
-  height: 400lvh;
+  height: 400vh;
 }
 
 .sticky-content {
@@ -115,22 +110,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100lvh;
+  height: 100vh;
   width: 100%;
-}
-
-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  min-height: 100lvh;
-  border-top: 1px dotted var(--red);
-  border-bottom: 1px dotted var(--red);
-}
-
-section.spacer {
-  min-height: 50lvh;
 }
 
 h1, h2 {
@@ -138,14 +119,6 @@ h1, h2 {
   font-size: min(5vw, 24px);
   max-width: 1000px;
   text-align: center;
-}
-
-.section-content {
-  transform-style: preserve-3d;
-  display: flex;
-  width: 100%;
-  height: 100lvh;
-  justify-content: center;
 }
 
 .stack {
@@ -204,80 +177,6 @@ h1, h2 {
   font-size: 2rem;
 }
 
-.grid::before {
-  content: "";
-  pointer-events: none;
-  position: absolute;
-  z-index: 0;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(-90deg, rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(-90deg, rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(transparent 3px, var(--black) 3px, var(--black) calc(var(--one-cell) - 2px), transparent calc(var(--one-cell) - 2px)), linear-gradient(-90deg, var(--white) 1px, transparent 1px), linear-gradient(-90deg, transparent 3px, var(--black) 3px, var(--black) calc(var(--one-cell) - 2px), transparent calc(var(--one-cell) - 2px)), linear-gradient(var(--white) 1px, transparent 1px), var(--black);
-  background-size: calc(var(--one-cell) / 10) calc(var(--one-cell) / 10), calc(var(--one-cell) / 10) calc(var(--one-cell) / 10), var(--one-cell) var(--one-cell), var(--one-cell) var(--one-cell), var(--one-cell) var(--one-cell), var(--one-cell) var(--one-cell), var(--one-cell) var(--one-cell), var(--one-cell) var(--one-cell);
-  background-position: calc(var(--one-cell) * .25) -1px;
-}
-
-#draggables {
-  overflow: hidden;
-  position: relative;
-  display: flex;
-  flex-grow: 1;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: flex-start;
-  padding: 0 0 var(--one-cell) 0;
-  transform-origin: 50% 0% 0px;
-  will-change: transform;
-}
-
-.example {
-  position: relative;
-  min-width: calc(var(--one-cell) * 1);
-  margin: calc(var(--one-cell) * .25);
-  margin-bottom: 0;
-}
-
-.example h2 {
-  font-family: Input Mono;
-  height: calc(var(--one-cell) * .5);
-  padding-top: 15px;
-  padding-bottom: 15px;
-}
-
-.example-content {
-  display: flex;
-  justify-content: flex-start;
-  width: 100%;
-}
-
-.example-content-vertical {
-  flex-direction: column;
-}
-
-.draggable {
-  display: flex;
-  position: relative;
-  z-index: 100;
-}
-
-.draggable::after {
-  content: "";
-  display: block;
-  pointer-events: none;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 20px;
-  height: 20px;
-  margin-left: -10px;
-  margin-top: -10px;
-  background-size: 5px 5px;
-  background-image:
-    radial-gradient(circle at center, var(--black) 1px, transparent 0),
-    radial-gradient(circle at center, var(--black) 1px, transparent 0);
-}
-
 .carousel .draggable {
   padding: 1rem;
   color: var(--black);
@@ -291,22 +190,19 @@ h1, h2 {
   height: calc((var(--one-cell) * 3));
 }
 
-.container.overflow {
-  overflow: auto;
-  overscroll-behavior: contain;
-}
-
 .carousel {
   display: flex;
   position: relative;
   overflow: visible;
   width: 100%;
-  height: calc((var(--one-cell) * 3) - 20px);
 }
 
 .carousel-item {
-  width: calc((var(--one-cell) * 3) - 20px);
-  height: calc((var(--one-cell) * 3) - 20px);
+  width: 200px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .carousel-item:nth-child(even) {
@@ -316,6 +212,8 @@ h1, h2 {
 #snap-carousel {
   display: flex;
   overflow: hidden;
+  width: 80%;
+  max-width: 800px;
 }
 
 #snap-carousel .carousel {
@@ -343,6 +241,7 @@ h1, h2 {
   background-color: var(--red);
   will-change: transform;
   box-shadow: 0 500px 0 0 var(--red);
+  transform: translateY(100%);
 }
 
 .drawer-content {
